@@ -83,7 +83,6 @@ var ViewModel = function() {
 	// So loop over each feature and push a new feature with each of the featureItems into the featureList
 	locations.forEach(function(featureItem){
 		self.featureList.push( new Feature(featureItem) );
-		console.log(self.featureList());
 	});
 	
 	this.setFeature = function(clickedFeature){

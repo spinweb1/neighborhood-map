@@ -45,6 +45,11 @@ button, input {
   width: 24%;	
 }
 
+#show-listings, #hide-listings {
+  width: 45%;
+  margin-left: 5px;	
+}
+
 @media screen and (max-width: 965px) {
 	#map {
 		width: 70%;	
