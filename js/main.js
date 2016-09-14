@@ -1,5 +1,5 @@
 // These are the features that will be shown to the user.
-// Can put these in a database instead.
+// Normally we'd have these in a database instead.
 var locations = 
 	[
 	  {
@@ -38,7 +38,7 @@ var locations =
 		lng: -78.656255
 	  },
 	  {
-		title: 'Saint Augustine\'s University',
+		name: 'Saint Augustine\'s University',
 		lat: 35.784858,
 		lng: -78.621310
 	  },
@@ -77,10 +77,9 @@ var ViewModel = function() {
 	var self = this;
 	
 	this.featureList = ko.observableArray([]);
-
 	
-	// Before can stuff data into featureList, need to take that data and make a new feature out of each of those objects
-	// So loop over each feature and push a new feature with each of the featureItems into the featureList
+	// Before can stuff data into catList, need to take that data and make a new cat out of each of those objects
+	// So loop over each cat and push a new cat with each of the catItems into the catList
 	locations.forEach(function(featureItem){
 		self.featureList.push( new Feature(featureItem) );
 	});
@@ -89,7 +88,7 @@ var ViewModel = function() {
 		self.currentFeature(clickedFeature);
 	};
 	
-	// Just need to access the first element of the featureList
+	// Just need to access the first element of the catList
 	this.currentFeature = ko.observable( this.featureList()[0] );
 
 	this.incrementCounter = function(){
@@ -98,4 +97,6 @@ var ViewModel = function() {
 	  
 };
 
-ko.applyBindings(new ViewModel());
+$(document).ready(function(){
+	ko.applyBindings(new ViewModel());
+});
