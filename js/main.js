@@ -3,51 +3,51 @@
 var locations = 
 	[
 	  {
-		title: 'North Carolina Museum of Science',
+		name: 'North Carolina Museum of Science',
 		location: {lat: 35.782274,lng: -78.639550}
 	  },
 	  {
-		title: 'Raleigh Convention Center',
+		name: 'Raleigh Convention Center',
 		location: {lat: 35.773646,lng: -78.641350}
 	  },
 	  {
-		title: 'Lincoln Theater',
+		name: 'Lincoln Theater',
 		location: {lat: 35.7795897,lng: -78.6381787}
 	  },
 	  {
-		title: 'Duke Energy Center for the Performing Arts',
+		name: 'Duke Energy Center for the Performing Arts',
 		location: {lat: 35.771467,lng: -78.639555}
 	  },
 	  {
-		title: 'North Carolina State Capitol',
+		name: 'North Carolina State Capitol',
 		location: {lat: 35.780568,lng: -78.639117}
 	  },
 	  {
-		title: 'William Peace University',
+		name: 'William Peace University',
 		location: {lat: 35.789286,lng: -78.637452}
 	  },
 	  {
-		title: 'Central Prison',
+		name: 'Central Prison',
 		location: {lat: 35.776388,lng: -78.656255}
 	  },
 	  {
-		title: 'Saint Augustine\'s University',
+		name: 'Saint Augustine\'s University',
 		location: {lat: 35.784858,lng: -78.621310}
 	  },
 	  {
-		title: 'D.H. Hill Library',
+		name: 'D.H. Hill Library',
 		location: {lat: 35.787512,lng: -78.669600}
 	  },
 	  {
-		title: 'North Carolina Museum of History',
+		name: 'North Carolina Museum of History',
 		location: {lat: 35.781785,lng: -78.638556}
 	  },
 	  {
-		title: 'Wake County Justice Center',
+		name: 'Wake County Justice Center',
 		location: {lat: 35.776576,lng: -78.641139}
 	  },
 	  {
-		title: 'Sacred Heart Cathedral',
+		name: 'Sacred Heart Cathedral',
 		location: {lat: 35.780675,lng: -78.641971}
 	  }
 	];

@@ -49,6 +49,10 @@ button, input {
   width: 45%;
   margin-left: 5px;	
 }
+#search-field {
+  width: 95%;
+  margin-left: 5px;	
+}
 
 @media screen and (max-width: 965px) {
 	#map {

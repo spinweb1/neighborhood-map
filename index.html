@@ -30,18 +30,19 @@
           <input id="show-listings" type="button" value="Show Features">
           <input id="hide-listings" type="button" value="Hide Features">
         </div>
+        <br>
+        <div class="search-field-wrapper">
+        	<input id="search-field" type="text" placeholder="Search for a feature" />
+        </div>
         <ul data-bind="foreach: featureList">
        	  <li data-bind="text: name, click: $parent.setFeature"></li>
     	</ul> 
 		<div data-bind="with: currentFeature">
           <h3 data-bind="text: name"></h3>
-          <div data-bind="with: {lat: '', lng: ''}"></div>
-          <!--<img data-bind="click: $parent.incrementCounter" src="" alt="">
-  
-          <h3>Nicknames</h3>
-          <ul data-bind="foreach: $parent.featureList">
-              <li data-bind="text: name"></li>
-          </ul>-->  
+          <div data-bind="with: location">
+          	<div data-bind="text: lat"></div>
+            <div data-bind="text: lng"></div>
+          </div>  
         </div>
         </div>
         <div id="map"></div>
@@ -452,13 +453,5 @@
           src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBFy6XVRHcWauQQ0QbsAYvuG6r4IwI_-co&v=3&callback=initMap">
       </script>
       <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.4.min.js"><\/script>')</script>
-
-
-      <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-      <script>
-          window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
-          ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
-      </script>
-      <script src="https://www.google-analytics.com/analytics.js" async defer></script>
     </body>
 </html>
