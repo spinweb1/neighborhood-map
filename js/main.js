@@ -18,19 +18,19 @@ var locations = [
 		name: 'North Carolina Museum of Science',
 		lat: 35.782274,
 		lng: -78.639550,
-		wikiBlurb: ''
+		wikiSnippet: ''
 	  },
 	  {
 		name: 'Raleigh Convention Center',
 		lat: 35.773646,
 		lng: -78.641350,
-		wikiBlurb: ''
+		wikiSnippet: ''
 	  },
 	  {
 		name: 'Lincoln Theater',
 		lat: 35.7795897,
 		lng: -78.6381787,
-		wikiBlurb: ''
+		wikiSnippet: ''
 	  }/*,
 	  {
 		name: 'Duke Energy Center for the Performing Arts',
@@ -205,7 +205,7 @@ function initMap() {
     self.locations().forEach(function(location) {
       var marker = location.marker;
       google.maps.event.addListener(marker, 'click', function() {
-        var contentString = "<h1>" + location.name + "</h1>" + "div class='wiki-blurb'>" + this.wikiSnippet() + "</div>";
+        var contentString = "<h1>" + location.name + "</h1>" + "div class='wiki-blurb'>" + self.locations.wikiSnippet() + "</div>";
         infowindow.setContent(contentString);
         infowindow.open(map, marker);
         marker.setAnimation(google.maps.Animation.BOUNCE);	
