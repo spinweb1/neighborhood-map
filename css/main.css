@@ -31,27 +31,36 @@ button, input {
 
 .text {
   font-size: 14px;	
-  margin: 10px 6px;
+  margin: 15px 6px;
   color: #fff;
   line-height: 15px;
 }
 
 #places-search {
   width: 70%;
-  margin-left: 6px;
+  margin-left: 15px;
 }
 
 #go-places {
-  width: 24%;	
+  width: 18%;	
 }
 
 #show-listings, #hide-listings {
   width: 45%;
   margin-left: 5px;	
 }
-#search-field {
-  width: 95%;
-  margin-left: 5px;	
+
+.item-selected {
+    color: #fff;
+}
+
+.location-title {
+    font-size: 1.2em;
+}
+
+.location-list-item {
+	margin: 15px 15px 15px -25px;	
+	list-style: none;
 }
 
 @media screen and (max-width: 965px) {
