@@ -199,13 +199,15 @@ function initMap() {
     var self = this;
     self.locations = ko.observableArray(locations);
     self.value = ko.observable('');
+	self.wikiSnippet = ko.observable('');
     for (var i = 0; i < locations.length; i++) {
       locations[i].marker = createMarker(new google.maps.LatLng(locations[i].lat, locations[i].lng));
     }
     self.locations().forEach(function(location) {
       var marker = location.marker;
       google.maps.event.addListener(marker, 'click', function() {
-        var contentString = "<h1>" + location.name + "</h1>" + "div class='wiki-blurb'>" + self.locations.wikiSnippet() + "</div>";
+		  console.log(location.wikiSnippet);
+        var contentString = "<h1>" + location.name + "</h1>" + "<div class='wiki-blurb'>" + location.wikiSnippet + "</div>";
         infowindow.setContent(contentString);
         infowindow.open(map, marker);
         marker.setAnimation(google.maps.Animation.BOUNCE);	
@@ -251,43 +253,13 @@ function initMap() {
 		}
 	};
 	
+	// Get data from Wikipedia, populate locationList with the info
+	this.getWikiData();
+	
     self.openInfowindow = function(location) {
       google.maps.event.trigger(location.marker, 'click');
     }
 	
-	// Highlight the desired item from location-list-item
-	self.highlightListItem = function(selectedName) {
-
-		var locationListItems = document.getElementsByClassName('location-list-item');
-
-		// Grab the first location-list-item
-		var locationListItems = $('.location-list-item').first();
-
-		// Get the number of location-list-items for the loop
-		var numLocationListItems = $('.location-list-item').toArray().length;
-		alert (numLocationListItems);  // it's capturing the array length
-
-		for(var i=0; i<numLocationListItems; i++) {
-			var numLoc = numLocationListItems[i];
-			console.log(numLoc);
-			// If it is already selected, deselect it
-			if(locationListItems.hasClass('item-selected')) {
-				locationListItems.removeClass('item-selected');
-			}
-			// If the item is selected, then select it
-			if(locationListItems.children('.location-title').text() === selectedName) {
-				locationListItems.addClass('item-selected');
-			}
-
-			// Go to the next location-list-item
-			locationListItems = locationListItems.next();
-		}
-	};
-	
-	self.onClick = function() {
-	  self.openInfowindow(location);
-	  //self.highlightListItem(index.name());
-	};
 	
     self.search = ko.computed(function() {
       return ko.utils.arrayFilter(self.locations(), function(place) {
