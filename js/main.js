@@ -206,7 +206,6 @@ function initMap() {
     self.locations().forEach(function(location) {
       var marker = location.marker;
       google.maps.event.addListener(marker, 'click', function() {
-		  console.log(location.wikiSnippet);
         var contentString = "<h1>" + location.name + "</h1>" + "<div class='wiki-blurb'>" + location.wikiSnippet + "</div>";
         infowindow.setContent(contentString);
         infowindow.open(map, marker);
@@ -220,48 +219,7 @@ function initMap() {
 	self.locationListLength = self.locations().length;
 	console.log(self.locationListLength);
 	
-	// Gets data from Wikipedia, populates search with wikiSnippets
-	this.getWikiData = function() {
-		var wikiQuery;
-
-		// If the wikiRequest times out, then display a message with a link to the Wikipedia page.
-		var wikiRequestTimeout = setTimeout(function() {
-			var phrase = 'Wikipedia cannot be accessed.  Please check your internet connection or click here: <a href="';
-			var wikiLink = 'https://en.wikipedia.org/wiki/';
-
-			for(var i=0; i<self.locationListLength; i++) {
-				self.search()[i].wikiSnippet(phrase + wikiLink + self.search()[i].name() + '" target="_blank">' + self.search()[i].name() + '</a>');
-			}
-		}, 1000);
-
-		for(var i=0; i<self.locationListLength; i++) {
-			wikiQuery = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + self.search()[i].name() + '&srproperties=snippet&format=json&callback=wikiCallback';
-
-			$.ajax({url: wikiQuery,
-				dataType:'jsonp',
-				success: function(data) {
-					// Go through the list and find the correct item, then add the wikiSnippet data
-					for(var i=0; i<that.locationListLength; i++) {
-						if(data[1][0] == self.search()[i].name()) {
-							self.search()[i].wikiSnippet(data[2][0]);
-						}
-					}
-
-					clearTimeout(wikiRequestTimeout);
-				}
-			});
-		}
-	};
-	
-	// Get data from Wikipedia, populate locationList with the info
-	this.getWikiData();
-	
-    self.openInfowindow = function(location) {
-      google.maps.event.trigger(location.marker, 'click');
-    }
-	
-	
-    self.search = ko.computed(function() {
+	self.search = ko.computed(function() {
       return ko.utils.arrayFilter(self.locations(), function(place) {
 		  
 		// Check if search matches location array title
@@ -273,6 +231,48 @@ function initMap() {
         return match;
       });
     });
+	
+
+	// Gets data from Wikipedia, populates search with wikiSnippets
+	this.getWikiData = function() {
+		var wikiQuery;
+
+		// If the wikiRequest times out, then display a message with a link to the Wikipedia page.
+		var wikiRequestTimeout = setTimeout(function() {
+			var phrase = 'Failed to get Wikipedia resources.  Please check your internet connection or click here: <a href="';
+			var wikiLink = 'https://en.wikipedia.org/wiki/';
+console.log(self.locations().wikiSnippet);
+			for(var i=0; i<self.locationListLength; i++) {
+				self.locations()[i].wikiSnippet(phrase + wikiLink + self.locations()[i].name() + '" target="_blank">' + self.locations()[i].name() + '</a>');
+			}
+		}, 4000);
+
+		for(var i=0; i<self.locationListLength; i++) {
+			wikiQuery = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + self.locations()[i].name() + '&srproperties=snippet&format=json&callback=wikiCallback';
+
+			$.ajax({url: wikiQuery,
+				dataType:'jsonp',
+				success: function(data) {
+					// Go through the list and find the correct item, then add the wikiSnippet data
+					for(var i=0; i<self.locationListLength; i++) {
+						if(data[1][0] == self.locations()[i].name()) {
+							self.locations()[i].wikiSnippet(data[2][0]);
+						}
+					}
+
+					clearTimeout(wikiRequestTimeout);
+				}
+			});
+		}
+	};
+	
+	// Get data from Wikipedia, populate locationList with the info
+	self.getWikiData();
+
+	
+    self.openInfowindow = function(location) {
+      google.maps.event.trigger(location.marker, 'click');
+    }
   };
   ko.applyBindings(new viewModel());
 }
