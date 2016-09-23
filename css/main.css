@@ -63,6 +63,9 @@ h3 {
 
 li:hover {
 	background-color: #fff;
+	border-radius: 2px;
+	padding: 2px;
+	margin: 15px 15px 15px -27px;
 }
 
 .highlight {

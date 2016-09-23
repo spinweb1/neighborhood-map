@@ -286,7 +286,8 @@ function initMap() {
 		// If the wikiRequest times out, then display a message with a link to the Wikipedia page.
 		var wikiRequestTimeout = setTimeout(function() {
 			var phrase = 'Failed to get Wikipedia resources.  Please check your internet connection or click here: <a href="';
-			var wikiLink = 'https://en.wikipedia.org/wiki/';
+			var wikiLink = 'https://en.wikipedia.org/wiki/';			
+			alert(phrase + wikiLink + '" target="_blank">' + locationName + '</a>');
 		}, 1500);
 
 			wikiQuery = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + locationName + '&srproperties=snippet&format=json&callback=wikiCallback';
