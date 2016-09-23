@@ -4,20 +4,24 @@ var marker;
 function error_handler() {
   alert("Google Maps cannot connect. Please try again.");
 }
-function createMarker(latlng) {
+// Create map markers
+function createMarker(latlng, name) {
+var image = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
   marker = new google.maps.Marker({
     position: latlng,
     map: map,
-    animation: null
+	icon: image,
+    animation: null,
+    name: name
   });
   return marker;
 }
 // Model data
 var locations = [
 	  {
-		name: 'North Carolina Museum of Science',
-		lat: 35.782274,
-		lng: -78.639550,
+		name: 'Mordecai House',
+		lat: 35.792842,
+		lng: -78.633177,
 		wikiSnippet: ''
 	  },
 	  {
@@ -27,61 +31,89 @@ var locations = [
 		wikiSnippet: ''
 	  },
 	  {
-		name: 'Lincoln Theater',
-		lat: 35.7795897,
-		lng: -78.6381787,
-		wikiSnippet: ''
-	  }/*,
-	  {
 		name: 'Duke Energy Center for the Performing Arts',
 		lat: 35.771467,
-		lng: -78.639555
+		lng: -78.639555,
+		wikiSnippet: ''
 	  },
 	  {
 		name: 'North Carolina State Capitol',
 		lat: 35.780568,
-		lng: -78.639117
+		lng: -78.639117,
+		wikiSnippet: ''
+	  },
+	  {
+		name: 'Pullen Park',
+		lat: 35.780361,
+		lng: -78.660629,
+		wikiSnippet: ''
+	  },
+	  {
+		name: 'William G. Enloe High School',
+		lat: 35.784247,
+		lng: -78.603338,
+		wikiSnippet: ''
+	  },
+	  {
+		name: 'North Carolina Correctional Institution for Women',
+		lat: 35.765795,
+		lng: -78.622069,
+		wikiSnippet: ''
+	  },
+	  {
+		name: 'North Carolina State University',
+		lat: 35.782423,
+		lng: -78.683556,
+		wikiSnippet: ''
+	  },
+	  {
+		name: 'Moore Square Historic District',
+		lat: 35.777275,
+		lng: -78.636923,
+		wikiSnippet: ''
 	  },
 	  {
 		name: 'William Peace University',
 		lat: 35.789286,
-		lng: -78.637452
+		lng: -78.637452,
+		wikiSnippet: ''
 	  },
 	  {
-		name: 'Central Prison',
+		name: 'North Carolina Department of Correction',
 		lat: 35.776388,
-		lng: -78.656255
+		lng: -78.656255,
+		wikiSnippet: ''
 	  },
 	  {
-		name: 'Saint Augustine\'s University',
+		name: 'St. Augustine\'s University',
 		lat: 35.784858,
-		lng: -78.621310
+		lng: -78.621310,
+		wikiSnippet: ''
 	  },
 	  {
-		name: 'D.H. Hill Library',
+		name: 'D. H. Hill Library',
 		lat: 35.787512,
-		lng: -78.669600
+		lng: -78.669600,
+		wikiSnippet: ''
 	  },
 	  {
 		name: 'North Carolina Museum of History',
 		lat: 35.781785,
-		lng: -78.638556
+		lng: -78.638556,
+		wikiSnippet: ''
 	  },
 	  {
-		name: 'Wake County Justice Center',
-		lat: 35.776576,
-		lng: -78.641139
-	  },
-	  {
-		name: 'Sacred Heart Cathedral',
+		name: 'Sacred Heart Cathedral (Raleigh, North Carolina)',
 		lat: 35.780675,
-		lng: -78.641971
-	  }*/
+		lng: -78.641971,
+		wikiSnippet: ''
+	  }
 ];
 
 function initMap() {
+  // Create map object and add parameters
   map = new google.maps.Map(document.getElementById('map'), {
-	center: {lat: 35.7904, lng: -78.6369},
+	center: {lat: 35.7804, lng: -78.6369},
 	zoom: 14,
 	styles: [
 	{
@@ -189,36 +221,49 @@ function initMap() {
   ]
   });
   
+  // Create infowindow object
   var infowindow;
-  infowindow = new google.maps.InfoWindow({
-    maxWidth: 300,
-    content: null
+	infowindow = new google.maps.InfoWindow({
+	  maxWidth: 300,
+	  content: null
   });
+  
   
   var viewModel = function() {
     var self = this;
+	// Set Knockout observables
     self.locations = ko.observableArray(locations);
     self.value = ko.observable('');
 	self.wikiSnippet = ko.observable('');
+	
     for (var i = 0; i < locations.length; i++) {
-      locations[i].marker = createMarker(new google.maps.LatLng(locations[i].lat, locations[i].lng));
+      locations[i].marker = createMarker(new google.maps.LatLng(locations[i].lat, locations[i].lng), locations[i].name);
     }
+	
+	// Sort list of locations alphabetically
+	self.locations.sort(function(left, right) { 
+		return left.name == right.name ? 0 : (left.name < right.name ? -1 : 1);
+	});
+
     self.locations().forEach(function(location) {
       var marker = location.marker;
+	  
       google.maps.event.addListener(marker, 'click', function() {
-        var contentString = "<h1>" + location.name + "</h1>" + "<div class='wiki-blurb'>" + location.wikiSnippet + "</div>";
-        infowindow.setContent(contentString);
-        infowindow.open(map, marker);
-        marker.setAnimation(google.maps.Animation.BOUNCE);	
+      	var marker = this,
+      		name = marker.name;
+      	self.getWikiData(marker, name);
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+		marker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
         setTimeout(function(){
           marker.setAnimation(null);
-        }, 1800);
+        }, 1400);
       });
     });
+
 	
 	self.locationListLength = self.locations().length;
-	console.log(self.locationListLength);
 	
+	// Search function with filtering
 	self.search = ko.computed(function() {
       return ko.utils.arrayFilter(self.locations(), function(place) {
 		  
@@ -234,42 +279,37 @@ function initMap() {
 	
 
 	// Gets data from Wikipedia, populates search with wikiSnippets
-	this.getWikiData = function() {
-		var wikiQuery;
+	this.getWikiData = function(marker, name) {
+		var wikiQuery,
+		    locationName = name;
 
 		// If the wikiRequest times out, then display a message with a link to the Wikipedia page.
 		var wikiRequestTimeout = setTimeout(function() {
 			var phrase = 'Failed to get Wikipedia resources.  Please check your internet connection or click here: <a href="';
 			var wikiLink = 'https://en.wikipedia.org/wiki/';
-console.log(self.locations().wikiSnippet);
-			for(var i=0; i<self.locationListLength; i++) {
-				self.locations()[i].wikiSnippet(phrase + wikiLink + self.locations()[i].name() + '" target="_blank">' + self.locations()[i].name() + '</a>');
-			}
-		}, 4000);
+		}, 1500);
 
-		for(var i=0; i<self.locationListLength; i++) {
-			wikiQuery = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + self.locations()[i].name() + '&srproperties=snippet&format=json&callback=wikiCallback';
+			wikiQuery = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + locationName + '&srproperties=snippet&format=json&callback=wikiCallback';
 
 			$.ajax({url: wikiQuery,
 				dataType:'jsonp',
 				success: function(data) {
-					// Go through the list and find the correct item, then add the wikiSnippet data
-					for(var i=0; i<self.locationListLength; i++) {
-						if(data[1][0] == self.locations()[i].name()) {
-							self.locations()[i].wikiSnippet(data[2][0]);
-						}
-					}
+					//console.log(data[2]);
+					var description = data[2];
 
+					var contentString = '<h1>' + locationName + '</h1><div class="wiki-blurb"><p>' + description + '</p></div>';
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+
+					//debugger;
+		
 					clearTimeout(wikiRequestTimeout);
 				}
 			});
-		}
+		//}
 	};
 	
-	// Get data from Wikipedia, populate locationList with the info
-	self.getWikiData();
-
-	
+	// Opens an infowindow upon clicking a list item
     self.openInfowindow = function(location) {
       google.maps.event.trigger(location.marker, 'click');
     }

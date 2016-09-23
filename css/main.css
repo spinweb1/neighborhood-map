@@ -20,13 +20,14 @@ h3 {
 #menu {
   height: 100%;
   width: 19%;
-  float: left;
-  background-color: #7698B4;	
+  float: left;	
   border-right: 3px solid #777;
-}
-
-button, input {
-  font-size: 12px;	
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#596a72+0,cedce7+100 */
+  background: #596a72; /* Old browsers */
+  background: -moz-linear-gradient(top,  #596a72 0%, #cedce7 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #596a72 0%,#cedce7 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #596a72 0%,#cedce7 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#596a72', endColorstr='#cedce7',GradientType=0 ); /* IE6-9 */
 }
 
 .text {
@@ -37,17 +38,13 @@ button, input {
 }
 
 #places-search {
-  width: 70%;
+  width: 92%;
   margin-left: 15px;
+  margin-bottom: 15px;
 }
 
 #go-places {
   width: 18%;	
-}
-
-#show-listings, #hide-listings {
-  width: 45%;
-  margin-left: 5px;	
 }
 
 .item-selected {
@@ -61,6 +58,15 @@ button, input {
 .location-list-item {
 	margin: 15px 15px 15px -25px;	
 	list-style: none;
+	cursor: pointer;
+}
+
+li:hover {
+	background-color: #fff;
+}
+
+.highlight {
+	color: red;	
 }
 
 @media screen and (max-width: 965px) {
@@ -69,7 +75,6 @@ button, input {
 	}
 	
 	#menu {
-		/*border: none;*/
 		width: 29%;	
 	}
 }
@@ -81,7 +86,22 @@ button, input {
 	
 	#menu {
 		border-bottom: 3px solid #777;
-		width: 100%;	
+		width: 100%;
+		height: auto;	
+	}
+	
+	.location-list-item {
+  	    font-size: 13px;
+		margin: 8px 15px 8px -25px;
+	}
+	
+	#places-search {
+		margin-bottom: 8px;
+	}
+	
+	input {
+		height: 20px;	
+		font-size: 12px;
 	}
 }
 
