@@ -6,6 +6,15 @@ body {
   padding: 0;
 }
 
+.title h1 {
+  margin: 0;
+  font-size: 30px;
+  padding-top: 17px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px #000;
+}
+
 h3 {
   color: #fff;	
   text-align: center;
@@ -21,26 +30,16 @@ h3 {
   height: 100%;
   width: 19%;
   float: left;	
-  border-right: 3px solid #777;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#596a72+0,cedce7+100 */
-  background: #596a72; /* Old browsers */
-  background: -moz-linear-gradient(top,  #596a72 0%, #cedce7 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #596a72 0%,#cedce7 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #596a72 0%,#cedce7 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#596a72', endColorstr='#cedce7',GradientType=0 ); /* IE6-9 */
-}
-
-.text {
-  font-size: 14px;	
-  margin: 15px 6px;
-  color: #fff;
-  line-height: 15px;
+  border-right: 3px solid #ccc;
+  background-color: #AEE9C6;
 }
 
 #places-search {
-  width: 92%;
+  width: 90%;
+  height: 30px;
   margin-left: 15px;
-  margin-bottom: 15px;
+  margin-top: 15px;
+  font-size: 15px;
 }
 
 #go-places {
@@ -56,21 +55,29 @@ h3 {
 }
 
 .location-list-item {
-	margin: 15px 15px 15px -25px;	
+	margin: 12px 15px 12px -25px;	
 	list-style: none;
 	cursor: pointer;
+	color: #333;
 }
 
 li:hover {
 	background-color: #fff;
 	border-radius: 2px;
 	padding: 2px;
-	margin: 15px 15px 15px -27px;
+	margin: -2px 15px -2px -27px;
 }
 
 .highlight {
 	color: red;	
 }
+
+.title-bar {
+	width: 100%;
+	background-color: #71B0EB;
+	height: 75px;
+}
+
 
 @media screen and (max-width: 965px) {
 	#map {
@@ -94,7 +101,7 @@ li:hover {
 	}
 	
 	.location-list-item {
-  	    font-size: 13px;
+  	    font-size: 14px;
 		margin: 8px 15px 8px -25px;
 	}
 	
@@ -105,6 +112,12 @@ li:hover {
 	input {
 		height: 20px;	
 		font-size: 12px;
+	}
+	
+	.title h1 {
+	  font-size: 22px;
+	  padding-top: 17px;
+	  letter-spacing: 3px;
 	}
 }
 

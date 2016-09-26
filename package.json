@@ -1,0 +1,20 @@
+{
+  "name": "NeighborhoodMap",
+  "version": "1.0.0",
+  "description": "A Single-Page Web Application that uses the KnockoutJS JavaScript library, along with two third-party APIs, to display locations of interest in the Raleigh, North Carolina area",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric Schweitzer",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-htmlmin": "^0.4.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-processhtml": "^0.4.0",
+    "load-grunt-tasks": "^3.5.0"
+  }
+}

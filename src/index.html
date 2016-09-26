@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Features of Raleigh, North Carolina</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- build:css dist/css/style.min.css -->
+    <link rel="stylesheet" href="src/css/main.css">
+    <!-- /build -->
+    <!-- build:js dist/js/NeighborhoodMap.js -->
+    <script src="src/js/main.js"></script>
+    <script src="src/js/knockout-3.4.0.js"></script>
+    <!-- /build -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="title-bar"><div class="title"><h1>Features of Raleigh, North Carolina</h1></div></div>
+    <div id="menu">
+      <input id="places-search" placeholder="Ex: Cafes in Raleigh, NC" type="search" data-bind="textInput: value">
+      <ul data-bind="foreach: search">
+        <li class="location-list-item" data-bind="text: name, click: $parent.openInfowindow"></li>
+      </ul>
+    </div>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFy6XVRHcWauQQ0QbsAYvuG6r4IwI_-co&callback=initMap"
+    async defer onerror="error_handler()"></script>
+  </body>
+</html>

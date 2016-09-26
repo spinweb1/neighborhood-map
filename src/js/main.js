@@ -61,9 +61,9 @@ var locations = [
 		wikiSnippet: ''
 	  },
 	  {
-		name: 'North Carolina State University',
-		lat: 35.782423,
-		lng: -78.683556,
+		name: 'WRAL-TV',
+		lat: 35.779411,
+		lng: -78.673691,
 		wikiSnippet: ''
 	  },
 	  {
