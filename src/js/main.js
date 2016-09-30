@@ -279,7 +279,7 @@ function initMap() {
 	
 
 	// Gets data from Wikipedia, populates search with wikiSnippets
-	this.getWikiData = function(marker, name) {
+	self.getWikiData = function(marker, name) {
 		var wikiQuery,
 		    locationName = name;
 
